@@ -1,0 +1,49 @@
+hive> CREATE DATABASE custom;                                                                                                                     
+OK
+Time taken: 0.053 seconds
+hive> show databases;
+OK
+acadgild_db
+b1
+custom
+default
+Time taken: 0.032 seconds, Fetched: 4 row(s)
+hive> use custom;    
+OK
+Time taken: 0.038 seconds
+hive> show tables;
+OK
+Time taken: 0.03 seconds
+hive> 
+hive> create table if not exists temperature_data ( date string, zip string, temperature int) row format delimited fields terminated by ',';
+OK
+Time taken: 0.108 seconds
+hive> load data local inpath '/home/acadgild/Acadgild/Assignment6_1/dataset_Session 14.txt' into table temperature_data;                    
+Loading data to table custom.temperature_data
+Table custom.temperature_data stats: [numFiles=1, totalSize=437]
+OK
+Time taken: 0.329 seconds
+
+hive> select from_unixtime(unix_timestamp(date , 'dd-MM-yyyy'),'dd-MM-yyyy') , zip, temperature from temperature_data;
+OK
+10-01-1990	123112	10
+14-02-1991	283901	11
+10-03-1990	381920	15
+10-01-1991	302918	22
+12-02-1990	384902	9
+10-01-1991	123112	11
+14-02-1990	283901	12
+10-03-1991	381920	16
+10-01-1990	302918	23
+12-02-1991	384902	10
+10-01-1993	123112	11
+14-02-1994	283901	12
+10-03-1993	381920	16
+10-01-1994	302918	23
+12-02-1991	384902	10
+10-01-1991	123112	11
+14-02-1990	283901	12
+10-03-1991	381920	16
+10-01-1990	302918	23
+12-02-1991	384902	10
+Time taken: 0.068 seconds, Fetched: 20 row(s)
